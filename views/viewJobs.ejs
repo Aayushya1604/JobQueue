@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<script>
+    //let gblDuration = 0;
+    function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        //destination - timenow = duration
+        //var now = new Date.now();
+
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            display.textContent = 'Complete';
+            //window.localStorage.removeItem("seconds")
+            //window.localStorage.removeItem("minutes")
+        } 
+        console.log(parseInt(seconds));
+        //window.localStorage.setItem("seconds",seconds)
+        //window.localStorage.setItem("minutes",minutes)
+    }, 1000);
+}
+window.onload = function () {
+    //sec  = parseInt(window.localStorage.getItem("seconds"))
+    //min = parseInt(window.localStorage.getItem("minutes"))
+    var seconds;
+    //console.log(sec);
+    //console.log(min);
+    //if((sec != null && min != null) && (min)) {
+    /*if (false) {
+    seconds = (parseInt(min*60)+sec);
+    console.log("COME HERE 1");
+    console.log(parseInt(seconds))
+    console.log("COME HERE 1")
+  } else {*/
+   window.jobs = JSON.parse('<%- JSON.stringify(jobs || null) %>');    
+   //console.log(window.jobs);
+  // if (window.jobs.length > 1) {
+  // console.log(window.jobs[0]);
+   //if (window.jobs.length > 1) {
+    console.log(window.jobs[0].jobTime);
+    var ms = window.jobs[0].jobTime.split(':');
+    seconds = parseInt(+ms[0]) * 60 + parseInt(+ms[1]);
+   //}
+    
+    console.log("COME HERE 2");
+    //seconds = 60*5;
+    console.log(seconds);
+  //}
+    display = document.querySelector('#currTime1');
+    startTimer(parseInt(seconds), display);
+};
+
+</script>
+<html>
+    <head>
+        <link href="/assets/styles.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>view jobs</h1>
+        <%if (jobs.length > 0) { %>
+            
+        <h3><%= jobs[0].jobName %> <span id="currTime1"></span><h3>
+            <script>
+            myVar = JSON.parse('<%- JSON.stringify(jobs) %>');
+            var ms = myVar[0].jobTime.split(':');
+            var dateNow = Date.now();
+            var dateFuture = new Date(dateNow);
+            dateFuture.setMinutes(dateFuture.getMinutes()+ parseInt(+ms[0]));
+            dateFuture.setSeconds(dateFuture.getSeconds()+ parseInt(+ms[1]));
+            var diffSeconds = (dateFuture - dateNow) / 1000;
+            console.log(diffSeconds);
+            //console.log(seconds);
+            console.log("HIIII");
+            //countDown(parseInt(seconds), "currTime1");
+            display = document.querySelector('#currTime1');
+            // seconds should be seconds between destinationdate - lastsaveddate 
+            startTimer(parseInt(diffSeconds), display);
+            //startTimer(parseInt(diffSeconds), display);
+            //myVar.shift();
+            </script>
+
+            <% } %>
+        
+        <% for (let i = 1; i < jobs.length; i++) { %>
+            <h3><%= jobs[i].jobName %> <span id="time"></span><%= jobs[i].jobTime %></span></h3>
+        <% } %>
+
+    </body>
+</html>
+

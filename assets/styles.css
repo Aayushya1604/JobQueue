@@ -1,0 +1,29 @@
+body {
+  background: lightblue;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #fff;
+  padding: 5% 30%;
+}
+h1 {
+  font-size: 48px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+p {
+  font-size: 16px;
+  text-align: center;
+}
+
+#job-form {
+  display: grid;
+  padding: 5% 30%;
+}
+#job-form label,
+#contact-form input {
+  padding: 10px;
+}
+#job-form input[value="submit"] {
+  margin-top: 20px;
+  max-width: 100px;
+}
